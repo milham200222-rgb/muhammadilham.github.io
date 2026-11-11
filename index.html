@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muhammad Ilham | Web Developer</title>
+<meta name="description" content="Portofolio Muhammad Ilham, Web Developer (PHP, CodeIgniter 3, PostgreSQL) dan lulusan S1 Sistem Informasi Universitas Internasional Batam.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: navbar sticky → hero 2 kolom (teks + foto bergaya jendela) → section bergantian → kontak terminal. Satu tema gelap. */
+:root{
+  --bg:#0a0f1c; --card:#111a2e; --card-2:#0d1527; --line:#1e2a45;
+  --text:#e5e9f2; --muted:#93a1b8; --dim:#64748b;
+  --cyan:#22d3ee; --green:#34d399; --pink:#f472b6; --amber:#fbbf24; --violet:#a78bfa;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --radius:16px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px;background:var(--bg)}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(#94a3b812 1px,transparent 1px),linear-gradient(90deg,#94a3b812 1px,transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(at 50% 0,#000 25%,transparent 70%);mask-image:radial-gradient(at 50% 0,#000 25%,transparent 70%)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+h1,h2,h3{text-wrap:balance}
+.container{width:min(1140px,100% - 40px);margin-inline:auto}
+.mono{font-family:var(--mono)}
+.accent{color:var(--cyan)}
+.muted{color:var(--muted)}
+.grad{background:linear-gradient(90deg,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* Navbar */
+.nav{position:sticky;top:0;z-index:50;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+.nav.scrolled{background:#0a0f1cdb;border-color:var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.nav-inner{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;height:70px}
+.logo{font-family:var(--mono);font-size:1.05rem;font-weight:700}
+.logo span{color:var(--cyan)}
+.menu{display:flex;gap:26px;list-style:none}
+.menu a{color:var(--muted);font-size:.9rem;transition:color .2s}
+.menu a:hover{color:var(--text)}
+.menu a em{font-style:normal;font-family:var(--mono);font-size:.76rem;color:var(--cyan);margin-right:5px}
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang{display:flex;padding:3px;border:1px solid var(--line);border-radius:8px;background:var(--card-2)}
+.lang button{border:0;background:none;color:var(--muted);font:600 .74rem var(--mono);padding:5px 10px;border-radius:6px;cursor:pointer}
+.lang button.active{background:var(--cyan);color:#06111f}
+.burger{display:none;border:0;background:none;color:var(--text);font-size:1.4rem;line-height:1;padding:4px 6px;cursor:pointer}
+
+/* Tombol */
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 24px}
+.actions.center{justify-content:center;margin:32px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border:1px solid var(--line);border-radius:10px;font-size:.93rem;font-weight:600;transition:transform .2s,box-shadow .2s,border-color .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:linear-gradient(90deg,var(--cyan),var(--green));color:#06111f;border-color:transparent}
+.btn-primary:hover{box-shadow:0 12px 30px -10px #22d3ee99}
+.btn-ghost{background:var(--card-2);color:var(--text)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* Hero */
+.hero{padding:64px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:64px}
+.status{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:5px 12px;border:1px solid #34d39959;border-radius:999px;background:#34d39914;font:500 .76rem var(--mono);color:var(--green)}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--green);animation:ping 2s infinite}
+.prompt{font:.9rem var(--mono);color:var(--muted)}
+.prompt b{color:var(--green);font-weight:500}
+.hero h1{margin:10px 0 14px;font-size:clamp(2.4rem,5.5vw,4rem);font-weight:800;line-height:1.08;letter-spacing:-.03em}
+.typed{min-height:1.8em;margin-bottom:18px;font-family:var(--mono);font-size:clamp(1rem,2.2vw,1.25rem)}
+.caret{display:inline-block;width:9px;height:1.1em;margin-left:4px;vertical-align:-3px;background:var(--cyan);animation:blink 1s step-end infinite}
+.lead{max-width:58ch;color:var(--muted);font-size:1.04rem}
+.socials{display:flex;flex-wrap:wrap;gap:8px 20px;font:.82rem var(--mono);color:var(--muted)}
+.socials a:hover{color:var(--cyan)}
+.photo-wrap{position:relative;justify-self:center;width:100%;max-width:400px}
+.window{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 40px 90px -40px #22d3ee73}
+.window-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:var(--card-2);border-bottom:1px solid var(--line);font:.75rem var(--mono);color:var(--dim)}
+.window-bar i{display:block;width:11px;height:11px;border-radius:50%}
+.window-bar i:nth-child(1){background:#f87171}
+.window-bar i:nth-child(2){background:#fbbf24}
+.window-bar i:nth-child(3){background:#34d399}
+.window-bar span{margin-left:8px}
+.photo{display:grid;place-items:center;aspect-ratio:4/5;background:radial-gradient(120% 90% at 30% 10%,#16233f,#0d1527 60%)}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:center 12%}
+.initials{display:grid;place-items:center;gap:14px;text-align:center}
+.initials b{font:700 5rem/1 var(--mono);letter-spacing:-.04em}
+.initials small{font:.78rem var(--mono);color:var(--dim)}
+.float{position:absolute;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:#111a2ef0;color:var(--muted);font-size:.8rem;box-shadow:0 20px 40px -18px #000c;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.float b{display:block;font:700 1.15rem var(--mono);color:var(--cyan)}
+.float.f1{bottom:64px;left:-30px}
+.float.f2{top:72px;right:-24px;color:var(--green)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:72px;background:var(--card-2);border:1px solid var(--line);border-radius:var(--radius)}
+.stat{padding:24px 16px;text-align:center;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font:700 2rem var(--mono);background:linear-gradient(90deg,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{color:var(--muted);font-size:.85rem}
+
+/* Section umum */
+section{padding:100px 0}
+.alt{background:#0d1527b3;border-block:1px solid var(--line)}
+.sec-head{margin-bottom:48px}
+.eyebrow{margin-bottom:10px;font:.85rem var(--mono);color:var(--cyan)}
+.sec-head h2{max-width:26ch;font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:800;line-height:1.2;letter-spacing:-.02em}
+.card{padding:26px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);transition:border-color .25s,transform .25s}
+.card:hover{border-color:#22d3ee73;transform:translateY(-3px)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{padding:4px 10px;background:var(--card-2);border:1px solid var(--line);border-radius:6px;font:.74rem var(--mono)}
+ul.list{display:grid;gap:9px;list-style:none}
+ul.list li{position:relative;padding-left:18px;color:var(--muted);font-size:.92rem}
+ul.list li::before{content:"▹";position:absolute;left:0;color:var(--cyan)}
+
+/* Tentang */
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;align-items:start;gap:48px}
+.about-text p{margin-bottom:16px;color:var(--muted);font-size:1.02rem;max-width:62ch}
+.code{margin:0;padding:22px 24px;overflow-x:auto;font:.84rem/1.9 var(--mono);white-space:pre}
+.tk-k{color:var(--pink)}.tk-v{color:var(--cyan)}.tk-p{color:var(--violet)}.tk-s{color:var(--green)}.tk-b{color:var(--amber)}.tk-c{color:var(--dim)}
+
+/* Proyek */
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.proj{display:flex;flex-direction:column;gap:12px}
+.proj.featured{background:linear-gradient(160deg,#22d3ee17,var(--card) 45%);border-color:#22d3ee59}
+.proj-top{display:flex;justify-content:space-between;gap:12px;font:.76rem var(--mono);color:var(--cyan)}
+.proj-top .star{color:var(--amber)}
+.proj h3{font-size:1.22rem;letter-spacing:-.01em}
+.proj p{flex:1;color:var(--muted);font-size:.93rem}
+.proj ul.list{margin-bottom:4px}
+
+/* Keahlian */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.skills-grid h3{margin-bottom:14px;font:600 .9rem var(--mono)}
+.skills-grid h3::before{content:"# ";color:var(--cyan)}
+
+/* Pendidikan */
+.edu-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+.edu-side{display:grid;gap:18px}
+.edu-grid h3{margin-bottom:4px;font-size:1.3rem}
+.gpa{margin:20px 0 4px;font:700 2.6rem/1 var(--mono)}
+.gpa small{font:500 .9rem var(--mono);color:var(--muted)}
+.label{margin:22px 0 10px;font:.76rem var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:.1em}
+.label.first{margin-top:0}
+.pub{font-style:italic;line-height:1.6}
+
+/* Kontak */
+.contact{text-align:center}
+.contact .sec-head h2{margin-inline:auto}
+.contact-sub{max-width:54ch;margin:-28px auto 36px;color:var(--muted)}
+.terminal{max-width:640px;margin:0 auto;text-align:left}
+.term-body{display:grid;gap:12px;padding:22px 24px;font:.9rem var(--mono)}
+.cmd{color:var(--dim)}
+.cmd b{color:var(--green);font-weight:400}
+.term-body a,.term-body .val{color:var(--cyan);word-break:break-all}
+.term-body a:hover{text-decoration:underline}
+footer{padding:26px 20px;border-top:1px solid var(--line);text-align:center;font:.78rem var(--mono);color:var(--dim)}
+
+/* Animasi: konten selalu terlihat; hanya bergeser halus saat masuk layar (jika browser mendukung) */
+.hero .reveal{animation:rise .7s ease-out both}
+.hero .photo-wrap.reveal{animation-delay:.12s}
+.hero .stats.reveal{animation-delay:.22s}
+@supports (animation-timeline: view()){
+  section .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 22%}
+}
+@keyframes rise{from{opacity:.65;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes blink{50%{opacity:0}}
+@keyframes ping{0%{box-shadow:0 0 0 0 #34d39999}to{box-shadow:0 0 0 8px #34d39900}}
+@media (prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+
+/* Responsif */
+@media (max-width:960px){
+  .hero-grid,.about-grid,.edu-grid{grid-template-columns:1fr}
+  .hero-grid{gap:56px}
+  .photo-wrap{max-width:340px}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .burger{display:block}
+  .menu{display:none;position:absolute;top:70px;left:-20px;right:-20px;flex-direction:column;gap:0;padding:8px 20px 16px;background:#0a0f1cf7;border-bottom:1px solid var(--line)}
+  .menu.open{display:flex}
+  .menu a{display:block;padding:11px 0}
+}
+@media (max-width:640px){
+  section{padding:76px 0}
+  .hero{padding-top:40px}
+  .proj-grid,.skills-grid{grid-template-columns:1fr}
+  .float.f1{left:-6px}
+  .float.f2{right:-6px}
+  .code{font-size:.76rem}
+  .stat b{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* =========================================================
+   DATA — ubah di sini saja. Semua bagian halaman dirender dari objek ini.
+   ========================================================= */
+const PROFILE = {
+  firstName: "Muhammad",
+  lastName: "Ilham",
+  initials: "MI",
+  logo: "mi",
+  email: "m.ilham20202@gmail.com",
+  phone: "+62 822-8534-2010",
+  whatsapp: "6282285342010",
+  photo: "",                         // isi mis. "./ilham.jpg" untuk menampilkan foto; kosong = inisial
+  cvFile: "./CV_Muhammad_Ilham.pdf", // file CV di folder yang sama
+  socials: [                         // link kosong otomatis disembunyikan
+    { label: "GitHub", url: "" },
+    { label: "LinkedIn", url: "" },
+  ],
+  stack: ["PHP", "CodeIgniter 3", "PostgreSQL", "HTML", "CSS"],
+  thesisTitle: "Rancang Bangun Aplikasi Pemesanan Galon Air Berbasis Android di Pulau Burung",
+  year: 2026,
+};
+
+const CONTENT = {
+  id: {
+    nav: [["about", "Tentang"], ["projects", "Proyek"], ["skills", "Keahlian"], ["education", "Pendidikan"], ["contact", "Kontak"]],
+    hero: {
+      status: "Terbuka untuk peluang kerja",
+      prompt: "~/batam",
+      roles: ["Web Developer", "PHP & CodeIgniter 3 Developer", "Android App Developer", "Lulusan Sistem Informasi"],
+      lead: "Lulusan S1 Sistem Informasi yang membangun aplikasi web dengan PHP (CodeIgniter 3) dan PostgreSQL, serta aplikasi Android untuk kebutuhan nyata, mulai dari perancangan database dan logika back-end hingga tampilan antarmuka.",
+      btnProjects: "Lihat Proyek →",
+      btnContact: "Hubungi Saya",
+      btnCv: "↓ Unduh CV",
+      photoAlt: "Foto Muhammad Ilham",
+      photoNote: "foto segera hadir",
+      float1: ["3,50", "IPK S1 · UIB"],
+      float2: "{ web · mobile · db }",
+      stats: [["3,50", "IPK S1"], ["2025", "Tahun lulus"], ["Web+Mobile", "Platform yang dikerjakan"], ["6", "Teknologi utama"]],
+    },
+    about: {
+      eyebrow: "// 01. tentang",
+      title: "Membangun aplikasi yang rapi, fungsional, dan menjawab kebutuhan nyata.",
+      paras: [
+        "Saya lulusan S1 Sistem Informasi, Fakultas Ilmu Komputer, Universitas Internasional Batam (UIB) tahun 2025 dengan IPK 3,50. Fokus saya ada di pengembangan web menggunakan PHP dan CodeIgniter 3, dengan PostgreSQL sebagai database.",
+        "Saya telah membangun aplikasi web pembelian alat tulis yang dilengkapi pencatatan stok barang. Untuk tugas akhir, saya mengembangkan aplikasi Android untuk pemesanan galon air di Pulau Burung.",
+        "Saya siap berkontribusi dalam tim untuk mengembangkan dan memelihara aplikasi web serta database, sambil terus memperdalam kemampuan teknis saya.",
+      ],
+      codeComment: "// ringkasan singkat",
+      code: { role: "Web Developer", education: "S1 Sistem Informasi · UIB", location: "Batam, Indonesia", gpa: "3.50" },
+    },
+    projects: {
+      eyebrow: "// 02. proyek",
+      title: "Aplikasi yang saya rancang dan bangun.",
+      items: [
+        {
+          top: "Web · CodeIgniter 3", star: "★ unggulan",
+          title: "Aplikasi Pembelian & Inventaris Alat Tulis",
+          desc: "Aplikasi web untuk mengelola pembelian alat tulis seperti buku dan pulpen, dilengkapi pencatatan barang agar stok tercatat rapi dan mudah dipantau.",
+          points: ["Modul transaksi pembelian alat tulis", "Pencatatan dan pelacakan stok barang", "Dibangun dengan pola MVC CodeIgniter 3"],
+          tags: ["PHP", "CodeIgniter 3", "HTML", "CSS", "MVC", "CRUD"],
+        },
+        {
+          top: "Android · Tugas Akhir", star: "★ skripsi",
+          title: "Aplikasi Pemesanan Galon Air",
+          desc: "Aplikasi berbasis Android untuk pemesanan galon air di Pulau Burung, dikembangkan sebagai tugas akhir S1 Sistem Informasi di Universitas Internasional Batam.",
+          points: ["Pemesanan galon air langsung dari aplikasi", "Dirancang untuk kebutuhan di Pulau Burung", "Proyek tugas akhir S1 Sistem Informasi"],
+          tags: ["Android", "Mobile App", "Tugas Akhir"],
+        },
+      ],
+    },
+    skills: {
+      eyebrow: "// 03. keahlian",
+      title: "Tools dan teknologi yang saya gunakan.",
+      groups: [
+        ["web-development", ["PHP", "CodeIgniter 3", "HTML", "CSS", "MVC Pattern"]],
+        ["database", ["PostgreSQL", "SQL Query", "CRUD"]],
+        ["mobile-and-language", ["Android", "Bahasa Indonesia · Fasih"]],
+      ],
+    },
+    education: {
+      eyebrow: "// 04. pendidikan",
+      title: "Sistem Informasi dari Universitas Internasional Batam.",
+      degree: "Sarjana Sistem Informasi",
+      meta: "Universitas Internasional Batam · Fakultas Ilmu Komputer · Lulus 2025",
+      gpa: "3,50", gpaScale: "/ 4,00 IPK",
+      highlightsLabel: "Sorotan",
+      highlights: [
+        "Tugas akhir: aplikasi Android pemesanan galon air di Pulau Burung.",
+        "Membangun aplikasi web pembelian & inventaris alat tulis dengan CodeIgniter 3.",
+      ],
+      thesisLabel: "Tugas Akhir",
+      langLabel: "Bahasa",
+      langs: ["Bahasa Indonesia · Fasih"],
+    },
+    contact: {
+      eyebrow: "// 05. kontak",
+      title: "Mari terhubung untuk peluang kerja dan kolaborasi.",
+      sub: "Saya terbuka untuk posisi web developer, PHP developer, dan peran IT lainnya.",
+      location: "Batam, Indonesia",
+      btnEmail: "Kirim Email",
+      btnCv: "↓ Unduh CV",
+    },
+    footer: "dibuat dengan HTML, CSS & JavaScript",
+  },
+
+  en: {
+    nav: [["about", "About"], ["projects", "Projects"], ["skills", "Skills"], ["education", "Education"], ["contact", "Contact"]],
+    hero: {
+      status: "Open to work",
+      prompt: "~/batam",
+      roles: ["Web Developer", "PHP & CodeIgniter 3 Developer", "Android App Developer", "Information Systems Graduate"],
+      lead: "Information Systems graduate who builds web applications with PHP (CodeIgniter 3) and PostgreSQL, as well as Android apps for real needs, from database design and back-end logic to the user interface.",
+      btnProjects: "View Projects →",
+      btnContact: "Contact Me",
+      btnCv: "↓ Download CV",
+      photoAlt: "Photo of Muhammad Ilham",
+      photoNote: "photo coming soon",
+      float1: ["3.50", "GPA · UIB"],
+      float2: "{ web · mobile · db }",
+      stats: [["3.50", "Bachelor's GPA"], ["2025", "Graduation year"], ["Web+Mobile", "Platforms built for"], ["6", "Core technologies"]],
+    },
+    about: {
+      eyebrow: "// 01. about",
+      title: "Building clean, functional apps that answer real needs.",
+      paras: [
+        "I graduated in 2025 with a Bachelor's degree in Information Systems from the Faculty of Computer Science, Universitas Internasional Batam (UIB), with a GPA of 3.50. My focus is web development with PHP and CodeIgniter 3, using PostgreSQL as the database.",
+        "I have built a stationery purchasing web application with inventory recording. For my undergraduate thesis, I developed an Android application for ordering gallon water in Pulau Burung.",
+        "I am ready to contribute to a team in developing and maintaining web applications and databases, while continuing to deepen my technical skills.",
+      ],
+      codeComment: "// quick summary",
+      code: { role: "Web Developer", education: "B.Sc. Information Systems · UIB", location: "Batam, Indonesia", gpa: "3.50" },
+    },
+    projects: {
+      eyebrow: "// 02. projects",
+      title: "Applications I designed and built.",
+      items: [
+        {
+          top: "Web · CodeIgniter 3", star: "★ featured",
+          title: "Stationery Purchasing & Inventory App",
+          desc: "A web application for managing stationery purchases such as books and pens, with item recording so stock stays organized and easy to monitor.",
+          points: ["Stationery purchase transaction module", "Stock recording and tracking", "Built with the CodeIgniter 3 MVC pattern"],
+          tags: ["PHP", "CodeIgniter 3", "HTML", "CSS", "MVC", "CRUD"],
+        },
+        {
+          top: "Android · Thesis", star: "★ thesis",
+          title: "Gallon Water Ordering App",
+          desc: "An Android-based application for ordering gallon water in Pulau Burung, developed as my undergraduate thesis in Information Systems at Universitas Internasional Batam.",
+          points: ["Order gallon water directly from the app", "Designed for the needs of Pulau Burung", "Undergraduate thesis project"],
+          tags: ["Android", "Mobile App", "Thesis"],
+        },
+      ],
+    },
+    skills: {
+      eyebrow: "// 03. skills",
+      title: "Tools and technologies I use.",
+      groups: [
+        ["web-development", ["PHP", "CodeIgniter 3", "HTML", "CSS", "MVC Pattern"]],
+        ["database", ["PostgreSQL", "SQL Query", "CRUD"]],
+        ["mobile-and-language", ["Android", "Indonesian · Native"]],
+      ],
+    },
+    education: {
+      eyebrow: "// 04. education",
+      title: "Information Systems at Universitas Internasional Batam.",
+      degree: "Bachelor of Information Systems",
+      meta: "Universitas Internasional Batam · Faculty of Computer Science · Graduated 2025",
+      gpa: "3.50", gpaScale: "/ 4.00 GPA",
+      highlightsLabel: "Highlights",
+      highlights: [
+        "Thesis: an Android app for ordering gallon water in Pulau Burung.",
+        "Built a stationery purchasing & inventory web app with CodeIgniter 3.",
+      ],
+      thesisLabel: "Thesis",
+      langLabel: "Languages",
+      langs: ["Indonesian · Native"],
+    },
+    contact: {
+      eyebrow: "// 05. contact",
+      title: "Let's connect about job opportunities and collaboration.",
+      sub: "I am open to web developer, PHP developer, and other IT roles.",
+      location: "Batam, Indonesia",
+      btnEmail: "Send Email",
+      btnCv: "↓ Download CV",
+    },
+    footer: "built with HTML, CSS & JavaScript",
+  },
+};
+
+/* =========================================================
+   KOMPONEN — fungsi kecil yang dipakai ulang
+   ========================================================= */
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const tags = (list) => `<div class="tags">${list.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>`;
+const bullets = (list) => `<ul class="list">${list.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
+const windowBar = (file) => `<div class="window-bar"><i></i><i></i><i></i><span>${esc(file)}</span></div>`;
+const secHead = (eyebrow, title) => `<div class="sec-head reveal"><p class="eyebrow">${esc(eyebrow)}</p><h2>${esc(title)}</h2></div>`;
+const section = (id, alt, inner) => `<section id="${id}"${alt ? ` class="${alt}"` : ""}><div class="container">${inner}</div></section>`;
+const extLink = (url, text) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(text)}</a>`;
+const waUrl = () => `https://wa.me/${PROFILE.whatsapp}`;
+const activeSocials = () => PROFILE.socials.filter((s) => s.url);
+
+/* =========================================================
+   SECTION — tiap bagian halaman
+   ========================================================= */
+const renderNav = (t, lang) => `
+<nav class="nav" id="nav"><div class="container nav-inner">
+  <a href="#home" class="logo">&lt;${esc(PROFILE.logo)} <span>/&gt;</span></a>
+  <ul class="menu" id="menu">${t.nav.map(([id, label], i) => `<li><a href="#${id}"><em>0${i + 1}.</em>${esc(label)}</a></li>`).join("")}</ul>
+  <div class="nav-right">
+    <div class="lang" role="group" aria-label="Language">
+      ${["id", "en"].map((l) => `<button type="button" data-lang="${l}" class="${l === lang ? "active" : ""}" aria-pressed="${l === lang}">${l.toUpperCase()}</button>`).join("")}
+    </div>
+    <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+</div></nav>`;
+
+const renderPhoto = (h) => PROFILE.photo
+  ? `<img src="${esc(PROFILE.photo)}" alt="${esc(h.photoAlt)}">`
+  : `<div class="initials" role="img" aria-label="${esc(h.photoAlt)}"><b class="grad">${esc(PROFILE.initials)}</b><small>${esc(h.photoNote)}</small></div>`;
+
+const renderHero = ({ hero: h }) => `
+<header class="hero" id="home"><div class="container">
+  <div class="hero-grid">
+    <div class="reveal">
+      <span class="status"><i></i>${esc(h.status)}</span>
+      <p class="prompt">${esc(h.prompt)} <b>$</b> whoami</p>
+      <h1>${esc(PROFILE.firstName)} <span class="grad">${esc(PROFILE.lastName)}</span></h1>
+      <p class="typed" aria-label="${esc(h.roles.join(", "))}"><span class="accent">&gt;</span> <span id="typed-text" aria-hidden="true">${esc(h.roles[0])}</span><span class="caret" aria-hidden="true"></span></p>
+      <p class="lead">${esc(h.lead)}</p>
+      <div class="actions">
+        <a href="#projects" class="btn btn-primary">${esc(h.btnProjects)}</a>
+        <a href="#contact" class="btn btn-ghost">${esc(h.btnContact)}</a>
+        <a href="${esc(PROFILE.cvFile)}" download class="btn btn-ghost">${esc(h.btnCv)}</a>
+      </div>
+      <div class="socials">
+        <a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a>
+        ${extLink(waUrl(), "WhatsApp ↗")}
+        ${activeSocials().map((s) => extLink(s.url, `${s.label} ↗`)).join("")}
+      </div>
+    </div>
+    <div class="photo-wrap reveal">
+      <div class="window">${windowBar(`${PROFILE.lastName.toLowerCase()}.jpg`)}<div class="photo">${renderPhoto(h)}</div></div>
+      <div class="float f1"><b>${esc(h.float1[0])}</b>${esc(h.float1[1])}</div>
+      <div class="float f2 mono">${esc(h.float2)}</div>
+    </div>
+  </div>
+  <div class="stats reveal">${h.stats.map(([n, l]) => `<div class="stat"><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join("")}</div>
+</div></header>`;
+
+const codeLine = (key, valueHtml, last = false) =>
+  `<div>  <span class="tk-p">${key}</span>: ${valueHtml}${last ? "" : ","}</div>`;
+const str = (s) => `<span class="tk-s">"${esc(s)}"</span>`;
+const arr = (list) => `[${list.map(str).join(", ")}]`;
+
+const renderAbout = ({ about: a }) => section("about", "", `
+  ${secHead(a.eyebrow, a.title)}
+  <div class="about-grid">
+    <div class="about-text reveal">${a.paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+    <div class="window reveal">${windowBar("profile.js")}<pre class="code"><div><span class="tk-c">${esc(a.codeComment)}</span></div><div><span class="tk-k">const</span> <span class="tk-v">${esc(PROFILE.lastName.toLowerCase())}</span> = {</div>${[
+      codeLine("role", str(a.code.role)),
+      codeLine("education", str(a.code.education)),
+      codeLine("location", str(a.code.location)),
+      codeLine("stack", arr(PROFILE.stack)),
+      codeLine("mobile", arr(["Android"])),
+      codeLine("gpa", `<span class="tk-b">${esc(a.code.gpa)}</span>`),
+      codeLine("graduated", `<span class="tk-b">2025</span>`),
+      codeLine("openToWork", `<span class="tk-b">true</span>`, true),
+    ].join("")}<div>};</div></pre></div>
+  </div>`);
+
+const renderProjects = ({ projects: p }) => section("projects", "alt", `
+  ${secHead(p.eyebrow, p.title)}
+  <div class="proj-grid">${p.items.map((it) => `
+    <article class="card proj featured reveal">
+      <div class="proj-top"><span>${esc(it.top)}</span><span class="star">${esc(it.star)}</span></div>
+      <h3>${esc(it.title)}</h3>
+      <p>${esc(it.desc)}</p>
+      ${bullets(it.points)}
+      ${tags(it.tags)}
+    </article>`).join("")}
+  </div>`);
+
+const renderSkills = ({ skills: s }) => section("skills", "", `
+  ${secHead(s.eyebrow, s.title)}
+  <div class="skills-grid">${s.groups.map(([name, list]) => `<div class="card reveal"><h3>${esc(name)}</h3>${tags(list)}</div>`).join("")}</div>`);
+
+const renderEducation = ({ education: e }) => section("education", "alt", `
+  ${secHead(e.eyebrow, e.title)}
+  <div class="edu-grid">
+    <div class="card reveal">
+      <h3>${esc(e.degree)}</h3>
+      <p class="muted">${esc(e.meta)}</p>
+      <p class="gpa"><span class="grad">${esc(e.gpa)}</span> <small>${esc(e.gpaScale)}</small></p>
+      <p class="label">${esc(e.highlightsLabel)}</p>
+      ${bullets(e.highlights)}
+    </div>
+    <div class="edu-side">
+      <div class="card reveal"><p class="label first">${esc(e.thesisLabel)}</p><p class="pub">${esc(PROFILE.thesisTitle)}</p></div>
+      <div class="card reveal"><p class="label first">${esc(e.langLabel)}</p>${bullets(e.langs)}</div>
+    </div>
+  </div>`);
+
+const termLine = (flag, valueHtml) => `<div><p class="cmd"><b>$</b> contact --${flag}</p>${valueHtml}</div>`;
+
+const renderContact = ({ contact: c, hero: h }) => section("contact", "contact", `
+  ${secHead(c.eyebrow, c.title)}
+  <p class="contact-sub reveal">${esc(c.sub)}</p>
+  <div class="window terminal reveal">${windowBar("contact.sh")}
+    <div class="term-body">
+      ${termLine("email", `<a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a>`)}
+      ${termLine("whatsapp", extLink(waUrl(), PROFILE.phone))}
+      ${activeSocials().map((s) => termLine(s.label.toLowerCase(), extLink(s.url, s.url.replace(/^https?:\/\/(www\.)?/, "")))).join("")}
+      ${termLine("location", `<span class="val">${esc(c.location)}</span>`)}
+      <p class="cmd"><b>$</b> <span class="caret" aria-hidden="true"></span></p>
+    </div>
+  </div>
+  <div class="actions center reveal">
+    <a href="mailto:${esc(PROFILE.email)}" class="btn btn-primary">${esc(c.btnEmail)}</a>
+    <a href="${esc(PROFILE.cvFile)}" download class="btn btn-ghost">${esc(c.btnCv)}</a>
+  </div>`);
+
+const renderFooter = (t) => `<footer>© ${PROFILE.year} ${esc(PROFILE.firstName)} ${esc(PROFILE.lastName)} · ${esc(t.footer)}</footer>`;
+
+/* =========================================================
+   INTERAKSI
+   ========================================================= */
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch { /* abaikan */ } },
+};
+
+let typingTimer = null;
+function startTyping(roles) {
+  clearTimeout(typingTimer);
+  const el = document.getElementById("typed-text");
+  if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let r = 0, i = roles[0].length, deleting = true;
+  const tick = () => {
+    const word = roles[r];
+    i += deleting ? -1 : 1;
+    el.textContent = word.slice(0, i);
+    let delay = deleting ? 45 : 85;
+    if (!deleting && i === word.length) { deleting = true; delay = 1800; }
+    else if (deleting && i === 0) { deleting = false; r = (r + 1) % roles.length; delay = 350; }
+    typingTimer = setTimeout(tick, delay);
+  };
+  typingTimer = setTimeout(tick, 2200);
+}
+
+function bindUI() {
+  const nav = document.getElementById("nav");
+  const menu = document.getElementById("menu");
+  const burger = document.getElementById("burger");
+  const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 10);
+  onScroll();
+  window.onscroll = onScroll;
+  burger.onclick = () => {
+    const open = menu.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open);
+  };
+  menu.querySelectorAll("a").forEach((a) => (a.onclick = () => { menu.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); }));
+  document.querySelectorAll("[data-lang]").forEach((b) => (b.onclick = () => render(b.dataset.lang)));
+}
+
+function render(lang) {
+  const t = CONTENT[lang] || CONTENT.id;
+  document.documentElement.lang = lang;
+  store.set("portfolio-lang", lang);
+  document.getElementById("app").innerHTML =
+    renderNav(t, lang) +
+    `<main>${renderHero(t)}${renderAbout(t)}${renderProjects(t)}${renderSkills(t)}${renderEducation(t)}${renderContact(t)}</main>` +
+    renderFooter(t);
+  bindUI();
+  startTyping(t.hero.roles);
+}
+
+render(store.get("portfolio-lang") === "en" ? "en" : "id");
+</script>
+</body>
+</html>
