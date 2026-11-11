@@ -5,249 +5,193 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Muhammad Ilham | Web Developer</title>
 <meta name="description" content="Portofolio Muhammad Ilham, Web Developer (PHP, CodeIgniter 3, PostgreSQL) dan lulusan S1 Sistem Informasi Universitas Internasional Batam.">
-<meta name="theme-color" content="#f5f0e6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* Gaya editorial terang: kertas krem, judul serif, aksen oranye bata. */
+/* Layout: navbar sticky → hero 2 kolom (teks + foto bergaya jendela) → section bergantian → kontak terminal. Satu tema gelap. */
 :root{
-  --paper:#f5f0e6; --card:#fbf8f2; --ink:#1c1a17; --ink-2:#4a443c; --muted:#6b6357; --line:#ddd3c2;
-  --accent:#c2410c; --accent-soft:#ff8a5c; --accent-tint:#f4d9c6; --sage:#d9e4d3; --sage-ink:#2f5340;
-  --dark-line:#3a3630; --dark-muted:#a9a093;
-  --serif:"Fraunces",Georgia,"Times New Roman",serif;
-  --sans:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --r:24px; --ease:cubic-bezier(.2,.7,.2,1);
-  color-scheme:light;
+  --bg:#0a0f1c; --card:#111a2e; --card-2:#0d1527; --line:#1e2a45;
+  --text:#e5e9f2; --muted:#93a1b8; --dim:#64748b;
+  --cyan:#22d3ee; --green:#34d399; --pink:#f472b6; --amber:#fbbf24; --violet:#a78bfa;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --radius:16px;
+  color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{font-family:var(--sans);font-size:1rem;line-height:1.7;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.22;mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+html{scroll-behavior:smooth;scroll-padding-top:84px;background:var(--bg)}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(#94a3b812 1px,transparent 1px),linear-gradient(90deg,#94a3b812 1px,transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(at 50% 0,#000 25%,transparent 70%);mask-image:radial-gradient(at 50% 0,#000 25%,transparent 70%)}
 a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
-ul{list-style:none}
-::selection{background:var(--accent);color:#fff}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
-h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
-h1 em,h2 em{font-style:italic;color:var(--accent)}
-.wrap{width:min(1180px,100% - 48px);margin-inline:auto}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+h1,h2,h3{text-wrap:balance}
+.container{width:min(1140px,100% - 40px);margin-inline:auto}
+.mono{font-family:var(--mono)}
+.accent{color:var(--cyan)}
+.muted{color:var(--muted)}
+.grad{background:linear-gradient(90deg,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
 
-/* Bilah atas */
-.top{position:sticky;top:0;z-index:40;background:#f5f0e6eb;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
-.top.scrolled{border-color:var(--line)}
-.top-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;height:72px}
-.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:.95rem}
-.brand-mark{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--paper);font:italic 500 1rem/1 var(--serif);transition:background .3s}
-.brand:hover .brand-mark{background:var(--accent)}
-.links{display:flex;gap:32px}
-.links a{position:relative;font-size:.92rem;font-weight:600;color:var(--ink-2);transition:color .2s}
-.links a:hover,.links a.active{color:var(--ink)}
-.links a::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
-.links a:hover::after,.links a.active::after{transform:scaleX(1);transform-origin:left}
-.top-right{display:flex;align-items:center;gap:16px}
-.lang{display:flex;align-items:center;gap:6px;font-size:.8rem;font-weight:800;letter-spacing:.06em}
-.lang button{border:0;background:none;font:inherit;letter-spacing:inherit;color:var(--muted);cursor:pointer;padding:4px 2px}
-.lang button.active{color:var(--ink);text-decoration:underline 2px var(--accent);text-underline-offset:6px}
-.lang .sep{color:var(--line)}
-.burger{display:none;align-items:center;padding:7px 16px;border:1.5px solid var(--ink);border-radius:999px;background:none;color:var(--ink);font:700 .8rem var(--sans);cursor:pointer}
+/* Navbar */
+.nav{position:sticky;top:0;z-index:50;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+.nav.scrolled{background:#0a0f1cdb;border-color:var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.nav-inner{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;height:70px}
+.logo{font-family:var(--mono);font-size:1.05rem;font-weight:700}
+.logo span{color:var(--cyan)}
+.menu{display:flex;gap:26px;list-style:none}
+.menu a{color:var(--muted);font-size:.9rem;transition:color .2s}
+.menu a:hover{color:var(--text)}
+.menu a em{font-style:normal;font-family:var(--mono);font-size:.76rem;color:var(--cyan);margin-right:5px}
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang{display:flex;padding:3px;border:1px solid var(--line);border-radius:8px;background:var(--card-2)}
+.lang button{border:0;background:none;color:var(--muted);font:600 .74rem var(--mono);padding:5px 10px;border-radius:6px;cursor:pointer}
+.lang button.active{background:var(--cyan);color:#06111f}
+.burger{display:none;border:0;background:none;color:var(--text);font-size:1.4rem;line-height:1;padding:4px 6px;cursor:pointer}
 
 /* Tombol */
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:1.5px solid var(--ink);border-radius:999px;font-size:.95rem;font-weight:700;transition:background .25s,color .25s,border-color .25s,transform .25s var(--ease)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 24px}
+.actions.center{justify-content:center;margin:32px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border:1px solid var(--line);border-radius:10px;font-size:.93rem;font-weight:600;transition:transform .2s,box-shadow .2s,border-color .2s,color .2s}
 .btn:hover{transform:translateY(-2px)}
-.btn-solid{background:var(--ink);color:var(--paper)}
-.btn-solid:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn-line:hover{background:var(--ink);color:var(--paper)}
-.text-link{font-weight:700;padding-bottom:2px;border-bottom:2px solid var(--accent);transition:color .2s}
-.text-link:hover{color:var(--accent)}
-.cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:36px}
+.btn-primary{background:linear-gradient(90deg,var(--cyan),var(--green));color:#06111f;border-color:transparent}
+.btn-primary:hover{box-shadow:0 12px 30px -10px #22d3ee99}
+.btn-ghost{background:var(--card-2);color:var(--text)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
 
 /* Hero */
-.hero{padding:64px 0 88px}
-.hero-grid{display:grid;grid-template-columns:1.35fr 1fr;align-items:center;gap:56px}
-.kicker{display:flex;align-items:center;gap:10px;margin-bottom:26px;font-size:.85rem;font-weight:700;letter-spacing:.04em;color:var(--ink-2)}
-.kicker i{width:8px;height:8px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 4px #16a34a29}
-.hero h1{font-size:clamp(2.6rem,5.6vw,4.5rem);line-height:1.02;letter-spacing:-.035em}
-.lead{max-width:52ch;margin-top:26px;font-size:1.08rem;color:var(--ink-2)}
-.lead strong{color:var(--ink)}
-.hero-art{position:relative;justify-self:center;width:100%;max-width:430px;aspect-ratio:1}
-.hero-art::before{content:"";position:absolute;inset:11%;border:1px dashed #1c1a1740;border-radius:50%}
-.ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible;animation:spin 30s linear infinite}
-.ring text{font-family:var(--sans);font-size:10.5px;font-weight:700;fill:var(--ink)}
-.portrait{position:absolute;inset:17%;display:grid;place-items:center;overflow:hidden;border-radius:50%;background:radial-gradient(circle at 30% 25%,#e2672f,var(--accent) 60%,#9a330a)}
-.portrait img{width:100%;height:100%;object-fit:cover;object-position:center 15%}
-.initials{font:italic 400 clamp(4rem,9vw,6.4rem)/1 var(--serif);color:var(--paper);letter-spacing:-.04em}
-.sticker{position:absolute;left:2%;bottom:8%;padding:12px 18px;border-radius:16px;background:var(--ink);color:var(--paper);text-align:center;transform:rotate(-8deg);box-shadow:0 18px 30px -16px #1c1a17aa}
-.sticker b{display:block;font:500 1.8rem/1 var(--serif)}
-.sticker span{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-muted)}
-.pill{position:absolute;top:9%;right:0;padding:8px 14px;border-radius:999px;background:var(--sage);color:var(--sage-ink);font-size:.8rem;font-weight:800;transform:rotate(6deg);box-shadow:0 12px 24px -14px #1c1a1766}
+.hero{padding:64px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:64px}
+.status{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:5px 12px;border:1px solid #34d39959;border-radius:999px;background:#34d39914;font:500 .76rem var(--mono);color:var(--green)}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--green);animation:ping 2s infinite}
+.prompt{font:.9rem var(--mono);color:var(--muted)}
+.prompt b{color:var(--green);font-weight:500}
+.hero h1{margin:10px 0 14px;font-size:clamp(2.4rem,5.5vw,4rem);font-weight:800;line-height:1.08;letter-spacing:-.03em}
+.typed{min-height:1.8em;margin-bottom:18px;font-family:var(--mono);font-size:clamp(1rem,2.2vw,1.25rem)}
+.caret{display:inline-block;width:9px;height:1.1em;margin-left:4px;vertical-align:-3px;background:var(--cyan);animation:blink 1s step-end infinite}
+.lead{max-width:58ch;color:var(--muted);font-size:1.04rem}
+.socials{display:flex;flex-wrap:wrap;gap:8px 20px;font:.82rem var(--mono);color:var(--muted)}
+.socials a:hover{color:var(--cyan)}
+.photo-wrap{position:relative;justify-self:center;width:100%;max-width:400px}
+.window{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 40px 90px -40px #22d3ee73}
+.window-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:var(--card-2);border-bottom:1px solid var(--line);font:.75rem var(--mono);color:var(--dim)}
+.window-bar i{display:block;width:11px;height:11px;border-radius:50%}
+.window-bar i:nth-child(1){background:#f87171}
+.window-bar i:nth-child(2){background:#fbbf24}
+.window-bar i:nth-child(3){background:#34d399}
+.window-bar span{margin-left:8px}
+.photo{display:grid;place-items:center;aspect-ratio:4/5;background:radial-gradient(120% 90% at 30% 10%,#16233f,#0d1527 60%)}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:center 12%}
+.initials{display:grid;place-items:center;gap:14px;text-align:center}
+.initials b{font:700 5rem/1 var(--mono);letter-spacing:-.04em}
+.initials small{font:.78rem var(--mono);color:var(--dim)}
+.float{position:absolute;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:#111a2ef0;color:var(--muted);font-size:.8rem;box-shadow:0 20px 40px -18px #000c;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.float b{display:block;font:700 1.15rem var(--mono);color:var(--cyan)}
+.float.f1{bottom:64px;left:-30px}
+.float.f2{top:72px;right:-24px;color:var(--green)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:72px;background:var(--card-2);border:1px solid var(--line);border-radius:var(--radius)}
+.stat{padding:24px 16px;text-align:center;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font:700 2rem var(--mono);background:linear-gradient(90deg,var(--cyan),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{color:var(--muted);font-size:.85rem}
 
-/* Pita berjalan */
-.band{overflow:hidden;padding:26px 0}
-.marquee{margin-inline:-40px;padding:20px 0;background:var(--ink);color:var(--paper);transform:rotate(-1.6deg)}
-.marquee-track{display:flex;width:max-content;animation:slide 38s linear infinite}
-.marquee-group{display:flex;align-items:center;gap:30px;padding-right:30px;white-space:nowrap;font:italic 300 clamp(1.5rem,3vw,2.2rem)/1.1 var(--serif)}
-.marquee-group .star{font-style:normal;font-size:.7em;color:var(--accent-soft)}
-
-/* Kerangka section */
-.block{padding:56px 0 64px}
-.sec{display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;padding-top:34px;border-top:1px solid var(--ink)}
-.sec-label{position:sticky;top:104px;align-self:start;display:flex;align-items:center;gap:12px;font-size:.76rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-.sec-label::before{content:"";width:26px;height:2px;background:var(--accent)}
-.sec-title{max-width:18ch;margin-bottom:48px;font-size:clamp(2.1rem,4.4vw,3.5rem)}
-.small-label{margin-bottom:12px;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.dash{display:grid;gap:8px}
-.dash li{position:relative;padding-left:26px;font-size:.95rem}
-.dash li::before{content:"";position:absolute;left:0;top:.8em;width:14px;height:2px;background:var(--accent)}
+/* Section umum */
+section{padding:100px 0}
+.alt{background:#0d1527b3;border-block:1px solid var(--line)}
+.sec-head{margin-bottom:48px}
+.eyebrow{margin-bottom:10px;font:.85rem var(--mono);color:var(--cyan)}
+.sec-head h2{max-width:26ch;font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:800;line-height:1.2;letter-spacing:-.02em}
+.card{padding:26px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);transition:border-color .25s,transform .25s}
+.card:hover{border-color:#22d3ee73;transform:translateY(-3px)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{padding:4px 10px;background:var(--card-2);border:1px solid var(--line);border-radius:6px;font:.74rem var(--mono)}
+ul.list{display:grid;gap:9px;list-style:none}
+ul.list li{position:relative;padding-left:18px;color:var(--muted);font-size:.92rem}
+ul.list li::before{content:"▹";position:absolute;left:0;color:var(--cyan)}
 
 /* Tentang */
-.about-intro{max-width:34ch;font-size:clamp(1.6rem,3vw,2.35rem);line-height:1.25;letter-spacing:-.015em}
-.about-cols{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:36px;color:var(--ink-2)}
-.facts{display:grid;grid-template-columns:repeat(3,1fr);column-gap:28px;margin-top:52px}
-.fact{padding:18px 0;border-top:1px solid var(--line)}
-.fact dt{margin-bottom:4px;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.fact dd{font:400 1.2rem/1.35 var(--serif)}
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;align-items:start;gap:48px}
+.about-text p{margin-bottom:16px;color:var(--muted);font-size:1.02rem;max-width:62ch}
+.code{margin:0;padding:22px 24px;overflow-x:auto;font:.84rem/1.9 var(--mono);white-space:pre}
+.tk-k{color:var(--pink)}.tk-v{color:var(--cyan)}.tk-p{color:var(--violet)}.tk-s{color:var(--green)}.tk-b{color:var(--amber)}.tk-c{color:var(--dim)}
 
 /* Proyek */
-.projects{display:grid;gap:28px}
-.project{display:grid;grid-template-columns:1.05fr 1fr;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
-.project:hover{border-color:#1c1a1740;box-shadow:0 30px 60px -40px #1c1a1766}
-.project:nth-child(even) .project-visual{order:-1}
-.project-info{display:flex;flex-direction:column;gap:16px;padding:40px}
-.project-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.project-meta{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.project-num{font:italic 300 2.6rem/1 var(--serif);color:var(--accent)}
-.project h3{font-size:clamp(1.6rem,2.6vw,2.1rem)}
-.project-info>p{color:var(--ink-2)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:10px}
-.chip{padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--paper);font-size:.78rem;font-weight:700;color:var(--ink-2)}
-.project-visual{display:grid;place-items:center;min-height:360px;padding:40px 28px}
-.project-visual.web{background:var(--accent-tint)}
-.project-visual.mobile{background:var(--sage)}
-
-/* Mockup dekoratif */
-.sk{display:block;height:7px;border-radius:4px;background:#e6ddcd}
-.w40{width:40%}.w50{width:50%}.w60{width:60%}.w80{width:80%}
-.mock-browser{width:100%;max-width:400px;overflow:hidden;border-radius:14px;background:#fff;box-shadow:0 0 0 1px #1c1a1714,0 34px 60px -30px #7c2d1299;transform:rotate(-2.5deg);transition:transform .5s var(--ease)}
-.project:hover .mock-browser,.project:hover .mock-phone{transform:rotate(0) translateY(-6px)}
-.mb-bar{padding:10px 12px;border-bottom:1px solid #efe8dc}
-.mb-url{display:block;padding:4px 12px;border-radius:999px;background:#f3eee5;font-size:.68rem;font-weight:600;color:var(--muted)}
-.mb-body{display:grid;grid-template-columns:64px 1fr;min-height:230px}
-.mb-side{display:grid;align-content:start;gap:10px;padding:16px 12px;background:var(--ink)}
-.mb-side .sk{background:#ffffff26}
-.mb-side .sk:first-child{background:var(--accent-soft)}
-.mb-main{display:grid;align-content:start;gap:10px;padding:16px}
-.mb-main>.sk{height:9px;background:#cfc4b2}
-.mb-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:4px}
-.mb-card{display:grid;gap:7px;padding:9px;border-radius:9px;background:#faf6ef;border:1px solid #f0e9dd}
-.mb-card b{display:block;width:55%;height:12px;border-radius:4px;background:var(--accent)}
-.mb-card:nth-child(2) b{background:var(--sage-ink)}
-.mb-card:nth-child(3) b{background:#d97706}
-.mb-row{display:grid;grid-template-columns:1fr .55fr 34px;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #f1ebe1}
-.st{display:block;height:14px;border-radius:999px;background:#bbe5c8}
-.st.low{background:#fbd0b0}
-.mock-phone{width:200px;padding:9px;border-radius:34px;background:var(--ink);box-shadow:0 34px 60px -28px #1f3d2c99;transform:rotate(3deg);transition:transform .5s var(--ease)}
-.mp-screen{display:flex;flex-direction:column;height:380px;overflow:hidden;border-radius:26px;background:#fff}
-.mp-notch{width:72px;height:16px;margin:0 auto;border-radius:0 0 12px 12px;background:var(--ink)}
-.mp-head{display:grid;gap:7px;margin:10px 10px 0;padding:14px 12px;border-radius:14px;background:var(--sage-ink)}
-.mp-head .sk{background:#ffffff40}
-.mp-head .sk:first-child{height:9px;background:#ffffffcc}
-.mp-list{display:grid;gap:9px;padding:12px 10px}
-.mp-item{display:grid;grid-template-columns:28px 1fr 36px;align-items:center;gap:10px;padding:9px;border-radius:12px;background:#f2f6ef}
-.mp-ico{position:relative;width:24px;height:28px;margin-top:5px;border-radius:6px 6px 8px 8px;background:#9cc4e4}
-.mp-ico::before{content:"";position:absolute;top:-6px;left:8px;width:8px;height:6px;border-radius:2px 2px 0 0;background:#4f86b8}
-.mp-txt{display:grid;gap:6px}
-.mp-btn{height:20px;border-radius:999px;background:var(--sage-ink)}
-.mp-cta{height:36px;margin:auto 10px 14px;border-radius:12px;background:var(--accent)}
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.proj{display:flex;flex-direction:column;gap:12px}
+.proj.featured{background:linear-gradient(160deg,#22d3ee17,var(--card) 45%);border-color:#22d3ee59}
+.proj-top{display:flex;justify-content:space-between;gap:12px;font:.76rem var(--mono);color:var(--cyan)}
+.proj-top .star{color:var(--amber)}
+.proj h3{font-size:1.22rem;letter-spacing:-.01em}
+.proj p{flex:1;color:var(--muted);font-size:.93rem}
+.proj ul.list{margin-bottom:4px}
 
 /* Keahlian */
-.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
-.skill-group h3{padding-bottom:14px;border-bottom:1px solid var(--ink);font-size:1.55rem}
-.skill-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);transition:padding .25s var(--ease)}
-.skill-row:hover{padding-left:8px}
-.skill-row b{font-weight:700}
-.skill-row span{font-size:.82rem;color:var(--muted);text-align:right}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.skills-grid h3{margin-bottom:14px;font:600 .9rem var(--mono)}
+.skills-grid h3::before{content:"# ";color:var(--cyan)}
 
 /* Pendidikan */
-.edu{display:grid;grid-template-columns:1.3fr 1fr;gap:24px}
-.edu-main,.langs{padding:38px;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
-.edu-side{display:grid;gap:24px;align-content:start}
-.edu-main h3{font-size:clamp(1.8rem,3vw,2.4rem)}
-.edu-school{margin-top:8px;color:var(--ink-2)}
-.edu-gpa{display:flex;align-items:center;gap:16px;margin:28px 0;padding:22px 0;border-block:1px solid var(--line)}
-.edu-gpa b{font:300 3.8rem/1 var(--serif);color:var(--accent);letter-spacing:-.03em}
-.edu-gpa span{font-size:.85rem;font-weight:600;line-height:1.45;color:var(--muted)}
-.thesis{position:relative;overflow:hidden;padding:38px;border-radius:var(--r);background:var(--ink);color:var(--paper)}
-.thesis .small-label{color:var(--dark-muted)}
-.thesis::after{content:"\201C";position:absolute;top:-18px;right:18px;font:italic 400 9rem/1 var(--serif);color:var(--accent-soft)}
-.thesis-title{position:relative;font:italic 400 clamp(1.25rem,2vw,1.5rem)/1.4 var(--serif)}
+.edu-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+.edu-side{display:grid;gap:18px}
+.edu-grid h3{margin-bottom:4px;font-size:1.3rem}
+.gpa{margin:20px 0 4px;font:700 2.6rem/1 var(--mono)}
+.gpa small{font:500 .9rem var(--mono);color:var(--muted)}
+.label{margin:22px 0 10px;font:.76rem var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:.1em}
+.label.first{margin-top:0}
+.pub{font-style:italic;line-height:1.6}
 
 /* Kontak */
-.contact{margin-top:40px;padding:110px 0 0;border-radius:44px 44px 0 0;background:var(--ink);color:var(--paper)}
-.contact .sec-label{position:static;margin-bottom:28px;color:var(--dark-muted)}
-.contact .sec-label::before{background:var(--accent-soft)}
-.contact h2{font-size:clamp(3rem,9vw,7.4rem);line-height:.95;letter-spacing:-.045em}
-.contact h2 em{color:var(--accent-soft)}
-.contact-sub{max-width:52ch;margin-top:26px;font-size:1.05rem;color:#d4cbbb}
-.big-mail{display:inline-block;margin-top:40px;padding-bottom:6px;border-bottom:2px solid var(--accent-soft);font:300 clamp(1.4rem,3.8vw,2.7rem)/1.2 var(--serif);overflow-wrap:anywhere;transition:color .2s}
-.big-mail:hover{color:var(--accent-soft)}
-.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));column-gap:28px;margin-top:56px}
-.c-item{padding:18px 0;border-top:1px solid var(--dark-line)}
-.c-item dt{margin-bottom:4px;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--dark-muted)}
-.c-item dd{font-size:1.05rem;font-weight:600;overflow-wrap:anywhere}
-.c-item a:hover{color:var(--accent-soft)}
-.btn-light{background:var(--paper);border-color:var(--paper);color:var(--ink)}
-.btn-light:hover{background:var(--accent-soft);border-color:var(--accent-soft)}
-.btn-ghost-light{border-color:#5e574d;color:var(--paper)}
-.btn-ghost-light:hover{border-color:var(--paper)}
-.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:96px;padding:26px 0 32px;border-top:1px solid var(--dark-line);font-size:.84rem;color:var(--dark-muted)}
-.foot a:hover{color:var(--paper)}
+.contact{text-align:center}
+.contact .sec-head h2{margin-inline:auto}
+.contact-sub{max-width:54ch;margin:-28px auto 36px;color:var(--muted)}
+.terminal{max-width:640px;margin:0 auto;text-align:left}
+.term-body{display:grid;gap:12px;padding:22px 24px;font:.9rem var(--mono)}
+.cmd{color:var(--dim)}
+.cmd b{color:var(--green);font-weight:400}
+.term-body a,.term-body .val{color:var(--cyan);word-break:break-all}
+.term-body a:hover{text-decoration:underline}
+footer{padding:26px 20px;border-top:1px solid var(--line);text-align:center;font:.78rem var(--mono);color:var(--dim)}
 
-/* Animasi */
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
-.project.reveal{transition:opacity .9s var(--ease),transform .9s var(--ease),border-color .3s,box-shadow .3s}
-.reveal.in{opacity:1;transform:none}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes slide{to{transform:translateX(-50%)}}
+/* Animasi: konten selalu terlihat; hanya bergeser halus saat masuk layar (jika browser mendukung) */
+.hero .reveal{animation:rise .7s ease-out both}
+.hero .photo-wrap.reveal{animation-delay:.12s}
+.hero .stats.reveal{animation-delay:.22s}
+@supports (animation-timeline: view()){
+  section .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 22%}
+}
+@keyframes rise{from{opacity:.65;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes blink{50%{opacity:0}}
+@keyframes ping{0%{box-shadow:0 0 0 0 #34d39999}to{box-shadow:0 0 0 8px #34d39900}}
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .reveal{opacity:1;transform:none}
+  *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
 }
 
 /* Responsif */
-@media (max-width:980px){
-  .hero-grid{grid-template-columns:1fr;gap:48px}
-  .hero-art{max-width:360px}
-  .sec{grid-template-columns:1fr;gap:22px}
-  .sec-label{position:static}
-  .project{grid-template-columns:1fr}
-  .project:nth-child(even) .project-visual{order:0}
-  .project-visual{min-height:300px}
-  .skills{grid-template-columns:1fr 1fr}
-  .edu{grid-template-columns:1fr}
-  .burger{display:inline-flex}
-  .links{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;padding:6px 24px 18px;background:var(--paper);border-bottom:1px solid var(--line);box-shadow:0 20px 30px -24px #1c1a1766}
-  .links.open{display:flex}
-  .links a{display:block;padding:12px 0;font:400 1.4rem var(--serif)}
-  .links a::after{display:none}
+@media (max-width:960px){
+  .hero-grid,.about-grid,.edu-grid{grid-template-columns:1fr}
+  .hero-grid{gap:56px}
+  .photo-wrap{max-width:340px}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .burger{display:block}
+  .menu{display:none;position:absolute;top:70px;left:-20px;right:-20px;flex-direction:column;gap:0;padding:8px 20px 16px;background:#0a0f1cf7;border-bottom:1px solid var(--line)}
+  .menu.open{display:flex}
+  .menu a{display:block;padding:11px 0}
 }
 @media (max-width:640px){
-  .wrap{width:min(1180px,100% - 36px)}
-  .hero{padding:40px 0 64px}
-  .block{padding:44px 0 52px}
-  .about-cols{grid-template-columns:1fr;gap:16px}
-  .facts{grid-template-columns:1fr 1fr}
-  .skills{grid-template-columns:1fr;gap:32px}
-  .project-info,.edu-main,.langs,.thesis{padding:28px}
-  .project-visual{min-height:0;padding:36px 20px}
-  .mock-phone{width:180px}
-  .mp-screen{height:340px}
-  .contact{padding-top:80px;border-radius:28px 28px 0 0}
-  .foot{margin-top:72px}
+  section{padding:76px 0}
+  .hero{padding-top:40px}
+  .proj-grid,.skills-grid{grid-template-columns:1fr}
+  .float.f1{left:-6px}
+  .float.f2{right:-6px}
+  .code{font-size:.76rem}
+  .stat b{font-size:1.6rem}
 }
-@media (max-width:400px){.brand-name{display:none}}
 </style>
 </head>
 <body>
@@ -261,6 +205,7 @@ const PROFILE = {
   firstName: "Muhammad",
   lastName: "Ilham",
   initials: "MI",
+  logo: "mi",
   email: "m.ilham20202@gmail.com",
   phone: "+62 822-8534-2010",
   whatsapp: "6282285342010",
@@ -270,52 +215,52 @@ const PROFILE = {
     { label: "GitHub", url: "" },
     { label: "LinkedIn", url: "" },
   ],
-  ringText: "WEB DEVELOPER ✦ PHP ✦ CODEIGNITER 3 ✦ POSTGRESQL ✦ ANDROID ✦ ",
-  marquee: ["PHP", "CodeIgniter 3", "PostgreSQL", "HTML", "CSS", "Android", "MVC", "SQL", "CRUD"],
+  stack: ["PHP", "CodeIgniter 3", "PostgreSQL", "HTML", "CSS"],
   thesisTitle: "Rancang Bangun Aplikasi Pemesanan Galon Air Berbasis Android di Pulau Burung",
   year: 2026,
 };
 
 const CONTENT = {
   id: {
-    docTitle: "Web Developer",
-    navLabel: "Navigasi utama",
-    menu: "Menu",
     nav: [["about", "Tentang"], ["projects", "Proyek"], ["skills", "Keahlian"], ["education", "Pendidikan"], ["contact", "Kontak"]],
     hero: {
-      kicker: "Terbuka untuk peluang kerja · Batam",
-      h1: "Halo, saya *Ilham*. Saya membangun aplikasi web yang rapi dan berguna.",
-      lead: "lulusan S1 Sistem Informasi Universitas Internasional Batam. Saya mengerjakan aplikasi web dengan PHP (CodeIgniter 3) dan PostgreSQL, juga aplikasi Android, dari rancangan database dan logika back-end sampai tampilan antarmuka.",
-      btnProjects: "Lihat proyek",
-      btnCv: "Unduh CV",
-      btnContact: "Hubungi saya →",
+      status: "Terbuka untuk peluang kerja",
+      prompt: "~/batam",
+      roles: ["Web Developer", "PHP & CodeIgniter 3 Developer", "Android App Developer", "Lulusan Sistem Informasi"],
+      lead: "Lulusan S1 Sistem Informasi yang membangun aplikasi web dengan PHP (CodeIgniter 3) dan PostgreSQL, serta aplikasi Android untuk kebutuhan nyata, mulai dari perancangan database dan logika back-end hingga tampilan antarmuka.",
+      btnProjects: "Lihat Proyek →",
+      btnContact: "Hubungi Saya",
+      btnCv: "↓ Unduh CV",
       photoAlt: "Foto Muhammad Ilham",
-      initialsAlt: "Inisial Muhammad Ilham",
-      sticker: ["3,50", "IPK S1"],
-      pill: "Web + Android",
+      photoNote: "foto segera hadir",
+      float1: ["3,50", "IPK S1 · UIB"],
+      float2: "{ web · mobile · db }",
+      stats: [["3,50", "IPK S1"], ["2025", "Tahun lulus"], ["Web+Mobile", "Platform yang dikerjakan"], ["6", "Teknologi utama"]],
     },
     about: {
-      label: "Tentang",
-      intro: "Saya fokus di pengembangan web, mengubah kebutuhan sehari-hari seperti *pencatatan stok* dan *pemesanan* menjadi aplikasi yang tertata.",
+      eyebrow: "// 01. tentang",
+      title: "Membangun aplikasi yang rapi, fungsional, dan menjawab kebutuhan nyata.",
       paras: [
-        "Saya lulus dari Fakultas Ilmu Komputer, Universitas Internasional Batam (UIB) pada 2025 dengan IPK 3,50. Alat utama saya adalah PHP dan CodeIgniter 3, dengan PostgreSQL sebagai database.",
-        "Saya siap bergabung dengan tim untuk mengembangkan dan memelihara aplikasi web serta database, sambil terus memperdalam kemampuan teknis saya.",
+        "Saya lulusan S1 Sistem Informasi, Fakultas Ilmu Komputer, Universitas Internasional Batam (UIB) tahun 2025 dengan IPK 3,50. Fokus saya ada di pengembangan web menggunakan PHP dan CodeIgniter 3, dengan PostgreSQL sebagai database.",
+        "Saya telah membangun aplikasi web pembelian alat tulis yang dilengkapi pencatatan stok barang. Untuk tugas akhir, saya mengembangkan aplikasi Android untuk pemesanan galon air di Pulau Burung.",
+        "Saya siap berkontribusi dalam tim untuk mengembangkan dan memelihara aplikasi web serta database, sambil terus memperdalam kemampuan teknis saya.",
       ],
-      facts: [["Peran", "Web Developer"], ["Pendidikan", "S1 Sistem Informasi, UIB"], ["Lulus", "2025"], ["IPK", "3,50 dari 4,00"], ["Lokasi", "Batam, Indonesia"], ["Status", "Terbuka untuk kerja"]],
+      codeComment: "// ringkasan singkat",
+      code: { role: "Web Developer", education: "S1 Sistem Informasi · UIB", location: "Batam, Indonesia", gpa: "3.50" },
     },
     projects: {
-      label: "Proyek",
-      title: "Dua aplikasi, *dua platform*.",
+      eyebrow: "// 02. proyek",
+      title: "Aplikasi yang saya rancang dan bangun.",
       items: [
         {
-          meta: "Aplikasi web · CodeIgniter 3", visual: "web",
+          top: "Web · CodeIgniter 3", star: "★ unggulan",
           title: "Aplikasi Pembelian & Inventaris Alat Tulis",
           desc: "Aplikasi web untuk mengelola pembelian alat tulis seperti buku dan pulpen, dilengkapi pencatatan barang agar stok tercatat rapi dan mudah dipantau.",
           points: ["Modul transaksi pembelian alat tulis", "Pencatatan dan pelacakan stok barang", "Dibangun dengan pola MVC CodeIgniter 3"],
           tags: ["PHP", "CodeIgniter 3", "HTML", "CSS", "MVC", "CRUD"],
         },
         {
-          meta: "Aplikasi Android · Tugas akhir", visual: "mobile",
+          top: "Android · Tugas Akhir", star: "★ skripsi",
           title: "Aplikasi Pemesanan Galon Air",
           desc: "Aplikasi berbasis Android untuk pemesanan galon air di Pulau Burung, dikembangkan sebagai tugas akhir S1 Sistem Informasi di Universitas Internasional Batam.",
           points: ["Pemesanan galon air langsung dari aplikasi", "Dirancang untuk kebutuhan di Pulau Burung", "Proyek tugas akhir S1 Sistem Informasi"],
@@ -324,79 +269,80 @@ const CONTENT = {
       ],
     },
     skills: {
-      label: "Keahlian",
-      title: "Alat yang saya pakai untuk *bekerja*.",
+      eyebrow: "// 03. keahlian",
+      title: "Tools dan teknologi yang saya gunakan.",
       groups: [
-        ["Web", [["PHP", "back-end"], ["CodeIgniter 3", "framework"], ["HTML", "struktur halaman"], ["CSS", "tampilan"], ["MVC Pattern", "arsitektur"]]],
-        ["Database", [["PostgreSQL", "database"], ["SQL Query", "olah data"], ["CRUD", "operasi data"]]],
-        ["Mobile & bahasa", [["Android", "aplikasi mobile"], ["Bahasa Indonesia", "fasih"]]],
+        ["web-development", ["PHP", "CodeIgniter 3", "HTML", "CSS", "MVC Pattern"]],
+        ["database", ["PostgreSQL", "SQL Query", "CRUD"]],
+        ["mobile-and-language", ["Android", "Bahasa Indonesia · Fasih"]],
       ],
     },
     education: {
-      label: "Pendidikan",
-      title: "Sistem Informasi di *Universitas Internasional Batam*.",
-      year: "Lulus 2025",
+      eyebrow: "// 04. pendidikan",
+      title: "Sistem Informasi dari Universitas Internasional Batam.",
       degree: "Sarjana Sistem Informasi",
-      school: "Universitas Internasional Batam · Fakultas Ilmu Komputer",
-      gpa: "3,50", gpaNote: ["IPK", "dari skala 4,00"],
+      meta: "Universitas Internasional Batam · Fakultas Ilmu Komputer · Lulus 2025",
+      gpa: "3,50", gpaScale: "/ 4,00 IPK",
       highlightsLabel: "Sorotan",
       highlights: [
         "Tugas akhir: aplikasi Android pemesanan galon air di Pulau Burung.",
         "Membangun aplikasi web pembelian & inventaris alat tulis dengan CodeIgniter 3.",
       ],
-      thesisLabel: "Tugas akhir",
+      thesisLabel: "Tugas Akhir",
       langLabel: "Bahasa",
-      langs: ["Bahasa Indonesia · fasih"],
+      langs: ["Bahasa Indonesia · Fasih"],
     },
     contact: {
-      label: "Kontak",
-      title: "Mari *bekerja sama*.",
-      sub: "Saya terbuka untuk posisi web developer, PHP developer, dan peran IT lainnya. Silakan hubungi saya lewat email atau WhatsApp.",
-      waLabel: "WhatsApp", locLabel: "Lokasi", location: "Batam, Indonesia",
-      btnEmail: "Kirim email", btnCv: "Unduh CV", toTop: "Kembali ke atas ↑",
+      eyebrow: "// 05. kontak",
+      title: "Mari terhubung untuk peluang kerja dan kolaborasi.",
+      sub: "Saya terbuka untuk posisi web developer, PHP developer, dan peran IT lainnya.",
+      location: "Batam, Indonesia",
+      btnEmail: "Kirim Email",
+      btnCv: "↓ Unduh CV",
     },
     footer: "dibuat dengan HTML, CSS & JavaScript",
   },
 
   en: {
-    docTitle: "Web Developer",
-    navLabel: "Main navigation",
-    menu: "Menu",
     nav: [["about", "About"], ["projects", "Projects"], ["skills", "Skills"], ["education", "Education"], ["contact", "Contact"]],
     hero: {
-      kicker: "Open to work · Batam",
-      h1: "Hi, I'm *Ilham*. I build web apps that are clean and useful.",
-      lead: "Information Systems graduate from Universitas Internasional Batam. I build web applications with PHP (CodeIgniter 3) and PostgreSQL, as well as Android apps, from database design and back-end logic to the user interface.",
-      btnProjects: "View projects",
-      btnCv: "Download CV",
-      btnContact: "Get in touch →",
+      status: "Open to work",
+      prompt: "~/batam",
+      roles: ["Web Developer", "PHP & CodeIgniter 3 Developer", "Android App Developer", "Information Systems Graduate"],
+      lead: "Information Systems graduate who builds web applications with PHP (CodeIgniter 3) and PostgreSQL, as well as Android apps for real needs, from database design and back-end logic to the user interface.",
+      btnProjects: "View Projects →",
+      btnContact: "Contact Me",
+      btnCv: "↓ Download CV",
       photoAlt: "Photo of Muhammad Ilham",
-      initialsAlt: "Muhammad Ilham's initials",
-      sticker: ["3.50", "GPA"],
-      pill: "Web + Android",
+      photoNote: "photo coming soon",
+      float1: ["3.50", "GPA · UIB"],
+      float2: "{ web · mobile · db }",
+      stats: [["3.50", "Bachelor's GPA"], ["2025", "Graduation year"], ["Web+Mobile", "Platforms built for"], ["6", "Core technologies"]],
     },
     about: {
-      label: "About",
-      intro: "I focus on web development, turning everyday needs like *stock recording* and *ordering* into well-organized applications.",
+      eyebrow: "// 01. about",
+      title: "Building clean, functional apps that answer real needs.",
       paras: [
-        "I graduated from the Faculty of Computer Science, Universitas Internasional Batam (UIB) in 2025 with a GPA of 3.50. My main tools are PHP and CodeIgniter 3, with PostgreSQL as the database.",
-        "I am ready to join a team to develop and maintain web applications and databases, while continuing to deepen my technical skills.",
+        "I graduated in 2025 with a Bachelor's degree in Information Systems from the Faculty of Computer Science, Universitas Internasional Batam (UIB), with a GPA of 3.50. My focus is web development with PHP and CodeIgniter 3, using PostgreSQL as the database.",
+        "I have built a stationery purchasing web application with inventory recording. For my undergraduate thesis, I developed an Android application for ordering gallon water in Pulau Burung.",
+        "I am ready to contribute to a team in developing and maintaining web applications and databases, while continuing to deepen my technical skills.",
       ],
-      facts: [["Role", "Web Developer"], ["Education", "B.Sc. Information Systems, UIB"], ["Graduated", "2025"], ["GPA", "3.50 out of 4.00"], ["Location", "Batam, Indonesia"], ["Status", "Open to work"]],
+      codeComment: "// quick summary",
+      code: { role: "Web Developer", education: "B.Sc. Information Systems · UIB", location: "Batam, Indonesia", gpa: "3.50" },
     },
     projects: {
-      label: "Projects",
-      title: "Two apps, *two platforms*.",
+      eyebrow: "// 02. projects",
+      title: "Applications I designed and built.",
       items: [
         {
-          meta: "Web app · CodeIgniter 3", visual: "web",
+          top: "Web · CodeIgniter 3", star: "★ featured",
           title: "Stationery Purchasing & Inventory App",
           desc: "A web application for managing stationery purchases such as books and pens, with item recording so stock stays organized and easy to monitor.",
           points: ["Stationery purchase transaction module", "Stock recording and tracking", "Built with the CodeIgniter 3 MVC pattern"],
           tags: ["PHP", "CodeIgniter 3", "HTML", "CSS", "MVC", "CRUD"],
         },
         {
-          meta: "Android app · Thesis", visual: "mobile",
+          top: "Android · Thesis", star: "★ thesis",
           title: "Gallon Water Ordering App",
           desc: "An Android-based application for ordering gallon water in Pulau Burung, developed as my undergraduate thesis in Information Systems at Universitas Internasional Batam.",
           points: ["Order gallon water directly from the app", "Designed for the needs of Pulau Burung", "Undergraduate thesis project"],
@@ -405,21 +351,20 @@ const CONTENT = {
       ],
     },
     skills: {
-      label: "Skills",
-      title: "The tools I *work* with.",
+      eyebrow: "// 03. skills",
+      title: "Tools and technologies I use.",
       groups: [
-        ["Web", [["PHP", "back-end"], ["CodeIgniter 3", "framework"], ["HTML", "page structure"], ["CSS", "styling"], ["MVC Pattern", "architecture"]]],
-        ["Database", [["PostgreSQL", "database"], ["SQL Query", "data queries"], ["CRUD", "data operations"]]],
-        ["Mobile & language", [["Android", "mobile apps"], ["Indonesian", "native"]]],
+        ["web-development", ["PHP", "CodeIgniter 3", "HTML", "CSS", "MVC Pattern"]],
+        ["database", ["PostgreSQL", "SQL Query", "CRUD"]],
+        ["mobile-and-language", ["Android", "Indonesian · Native"]],
       ],
     },
     education: {
-      label: "Education",
-      title: "Information Systems at *Universitas Internasional Batam*.",
-      year: "Graduated 2025",
+      eyebrow: "// 04. education",
+      title: "Information Systems at Universitas Internasional Batam.",
       degree: "Bachelor of Information Systems",
-      school: "Universitas Internasional Batam · Faculty of Computer Science",
-      gpa: "3.50", gpaNote: ["GPA", "on a 4.00 scale"],
+      meta: "Universitas Internasional Batam · Faculty of Computer Science · Graduated 2025",
+      gpa: "3.50", gpaScale: "/ 4.00 GPA",
       highlightsLabel: "Highlights",
       highlights: [
         "Thesis: an Android app for ordering gallon water in Pulau Burung.",
@@ -427,167 +372,154 @@ const CONTENT = {
       ],
       thesisLabel: "Thesis",
       langLabel: "Languages",
-      langs: ["Indonesian · native"],
+      langs: ["Indonesian · Native"],
     },
     contact: {
-      label: "Contact",
-      title: "Let's *work together*.",
-      sub: "I am open to web developer, PHP developer, and other IT roles. Feel free to reach me by email or WhatsApp.",
-      waLabel: "WhatsApp", locLabel: "Location", location: "Batam, Indonesia",
-      btnEmail: "Send email", btnCv: "Download CV", toTop: "Back to top ↑",
+      eyebrow: "// 05. contact",
+      title: "Let's connect about job opportunities and collaboration.",
+      sub: "I am open to web developer, PHP developer, and other IT roles.",
+      location: "Batam, Indonesia",
+      btnEmail: "Send Email",
+      btnCv: "↓ Download CV",
     },
     footer: "built with HTML, CSS & JavaScript",
   },
 };
 
 /* =========================================================
-   KOMPONEN
+   KOMPONEN — fungsi kecil yang dipakai ulang
    ========================================================= */
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const rich = (s) => esc(s).replace(/\*(.+?)\*/g, "<em>$1</em>"); // *teks* → miring berwarna
-const list = (items) => `<ul class="dash">${items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
-const chips = (items) => `<div class="chips">${items.map((x) => `<span class="chip">${esc(x)}</span>`).join("")}</div>`;
+const tags = (list) => `<div class="tags">${list.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>`;
+const bullets = (list) => `<ul class="list">${list.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
+const windowBar = (file) => `<div class="window-bar"><i></i><i></i><i></i><span>${esc(file)}</span></div>`;
+const secHead = (eyebrow, title) => `<div class="sec-head reveal"><p class="eyebrow">${esc(eyebrow)}</p><h2>${esc(title)}</h2></div>`;
+const section = (id, alt, inner) => `<section id="${id}"${alt ? ` class="${alt}"` : ""}><div class="container">${inner}</div></section>`;
 const extLink = (url, text) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(text)}</a>`;
 const waUrl = () => `https://wa.me/${PROFILE.whatsapp}`;
 const activeSocials = () => PROFILE.socials.filter((s) => s.url);
-const fullName = () => `${PROFILE.firstName} ${PROFILE.lastName}`;
-const block = (id, label, inner) =>
-  `<section id="${id}" class="block"><div class="wrap sec"><p class="sec-label">${esc(label)}</p><div>${inner}</div></div></section>`;
-
-const MOCKS = {
-  web: () => `
-    <div class="mock-browser">
-      <div class="mb-bar"><span class="mb-url">localhost/atk/stok</span></div>
-      <div class="mb-body">
-        <div class="mb-side">${'<i class="sk"></i>'.repeat(5)}</div>
-        <div class="mb-main">
-          <i class="sk w40"></i>
-          <div class="mb-cards">${'<div class="mb-card"><i class="sk w60"></i><b></b></div>'.repeat(3)}</div>
-          ${["ok", "ok", "low", "ok", "low"].map((s) => `<div class="mb-row"><i class="sk"></i><i class="sk"></i><i class="st ${s}"></i></div>`).join("")}
-        </div>
-      </div>
-    </div>`,
-  mobile: () => `
-    <div class="mock-phone"><div class="mp-screen">
-      <div class="mp-notch"></div>
-      <div class="mp-head"><i class="sk w50"></i><i class="sk w80"></i></div>
-      <div class="mp-list">${'<div class="mp-item"><span class="mp-ico"></span><span class="mp-txt"><i class="sk w80"></i><i class="sk w50"></i></span><span class="mp-btn"></span></div>'.repeat(3)}</div>
-      <div class="mp-cta"></div>
-    </div></div>`,
-};
 
 /* =========================================================
-   SECTION
+   SECTION — tiap bagian halaman
    ========================================================= */
-const renderTop = (t, lang) => `
-<header class="top" id="top"><div class="wrap top-inner">
-  <a href="#home" class="brand"><span class="brand-mark">${esc(PROFILE.initials)}</span><span class="brand-name">${esc(fullName())}</span></a>
-  <nav aria-label="${esc(t.navLabel)}">
-    <ul class="links" id="menu">${t.nav.map(([id, label]) => `<li><a href="#${id}" data-link="${id}">${esc(label)}</a></li>`).join("")}</ul>
-  </nav>
-  <div class="top-right">
-    <div class="lang" role="group" aria-label="Bahasa / Language">
-      ${["id", "en"].map((l) => `<button type="button" data-lang="${l}" class="${l === lang ? "active" : ""}" aria-pressed="${l === lang}">${l.toUpperCase()}</button>`).join('<span class="sep" aria-hidden="true">/</span>')}
+const renderNav = (t, lang) => `
+<nav class="nav" id="nav"><div class="container nav-inner">
+  <a href="#home" class="logo">&lt;${esc(PROFILE.logo)} <span>/&gt;</span></a>
+  <ul class="menu" id="menu">${t.nav.map(([id, label], i) => `<li><a href="#${id}"><em>0${i + 1}.</em>${esc(label)}</a></li>`).join("")}</ul>
+  <div class="nav-right">
+    <div class="lang" role="group" aria-label="Language">
+      ${["id", "en"].map((l) => `<button type="button" data-lang="${l}" class="${l === lang ? "active" : ""}" aria-pressed="${l === lang}">${l.toUpperCase()}</button>`).join("")}
     </div>
-    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu">${esc(t.menu)}</button>
+    <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu">☰</button>
   </div>
-</div></header>`;
+</div></nav>`;
 
-const renderPortrait = (h) => PROFILE.photo
+const renderPhoto = (h) => PROFILE.photo
   ? `<img src="${esc(PROFILE.photo)}" alt="${esc(h.photoAlt)}">`
-  : `<span class="initials" role="img" aria-label="${esc(h.initialsAlt)}">${esc(PROFILE.initials)}</span>`;
+  : `<div class="initials" role="img" aria-label="${esc(h.photoAlt)}"><b class="grad">${esc(PROFILE.initials)}</b><small>${esc(h.photoNote)}</small></div>`;
 
 const renderHero = ({ hero: h }) => `
-<section class="hero" id="home"><div class="wrap hero-grid">
-  <div>
-    <p class="kicker reveal"><i></i>${esc(h.kicker)}</p>
-    <h1 class="reveal" style="--d:.08s">${rich(h.h1)}</h1>
-    <p class="lead reveal" style="--d:.16s"><strong>${esc(fullName())}</strong> — ${esc(h.lead)}</p>
-    <div class="cta reveal" style="--d:.24s">
-      <a href="#projects" class="btn btn-solid">${esc(h.btnProjects)}</a>
-      <a href="${esc(PROFILE.cvFile)}" download class="btn btn-line">${esc(h.btnCv)}</a>
-      <a href="#contact" class="text-link">${esc(h.btnContact)}</a>
+<header class="hero" id="home"><div class="container">
+  <div class="hero-grid">
+    <div class="reveal">
+      <span class="status"><i></i>${esc(h.status)}</span>
+      <p class="prompt">${esc(h.prompt)} <b>$</b> whoami</p>
+      <h1>${esc(PROFILE.firstName)} <span class="grad">${esc(PROFILE.lastName)}</span></h1>
+      <p class="typed" aria-label="${esc(h.roles.join(", "))}"><span class="accent">&gt;</span> <span id="typed-text" aria-hidden="true">${esc(h.roles[0])}</span><span class="caret" aria-hidden="true"></span></p>
+      <p class="lead">${esc(h.lead)}</p>
+      <div class="actions">
+        <a href="#projects" class="btn btn-primary">${esc(h.btnProjects)}</a>
+        <a href="#contact" class="btn btn-ghost">${esc(h.btnContact)}</a>
+        <a href="${esc(PROFILE.cvFile)}" download class="btn btn-ghost">${esc(h.btnCv)}</a>
+      </div>
+      <div class="socials">
+        <a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a>
+        ${extLink(waUrl(), "WhatsApp ↗")}
+        ${activeSocials().map((s) => extLink(s.url, `${s.label} ↗`)).join("")}
+      </div>
+    </div>
+    <div class="photo-wrap reveal">
+      <div class="window">${windowBar(`${PROFILE.lastName.toLowerCase()}.jpg`)}<div class="photo">${renderPhoto(h)}</div></div>
+      <div class="float f1"><b>${esc(h.float1[0])}</b>${esc(h.float1[1])}</div>
+      <div class="float f2 mono">${esc(h.float2)}</div>
     </div>
   </div>
-  <div class="hero-art reveal" style="--d:.12s">
-    <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
-      <defs><path id="ring-path" d="M100,100 m-86,0 a86,86 0 1,1 172,0 a86,86 0 1,1 -172,0"/></defs>
-      <text><textPath href="#ring-path" textLength="536" lengthAdjust="spacing">${esc(PROFILE.ringText)}</textPath></text>
-    </svg>
-    <div class="portrait">${renderPortrait(h)}</div>
-    <div class="sticker"><b>${esc(h.sticker[0])}</b><span>${esc(h.sticker[1])}</span></div>
-    <div class="pill">${esc(h.pill)}</div>
-  </div>
-</div></section>`;
+  <div class="stats reveal">${h.stats.map(([n, l]) => `<div class="stat"><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join("")}</div>
+</div></header>`;
 
-const renderBand = () => {
-  const items = [...PROFILE.marquee, ...PROFILE.marquee].map((s) => `<span>${esc(s)}</span><span class="star">✦</span>`).join("");
-  return `<div class="band" aria-hidden="true"><div class="marquee"><div class="marquee-track"><div class="marquee-group">${items}</div><div class="marquee-group">${items}</div></div></div></div>`;
-};
+const codeLine = (key, valueHtml, last = false) =>
+  `<div>  <span class="tk-p">${key}</span>: ${valueHtml}${last ? "" : ","}</div>`;
+const str = (s) => `<span class="tk-s">"${esc(s)}"</span>`;
+const arr = (list) => `[${list.map(str).join(", ")}]`;
 
-const renderAbout = ({ about: a }) => block("about", a.label, `
-  <h2 class="about-intro reveal">${rich(a.intro)}</h2>
-  <div class="about-cols reveal">${a.paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
-  <dl class="facts reveal">${a.facts.map(([k, v]) => `<div class="fact"><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>`);
+const renderAbout = ({ about: a }) => section("about", "", `
+  ${secHead(a.eyebrow, a.title)}
+  <div class="about-grid">
+    <div class="about-text reveal">${a.paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+    <div class="window reveal">${windowBar("profile.js")}<pre class="code"><div><span class="tk-c">${esc(a.codeComment)}</span></div><div><span class="tk-k">const</span> <span class="tk-v">${esc(PROFILE.lastName.toLowerCase())}</span> = {</div>${[
+      codeLine("role", str(a.code.role)),
+      codeLine("education", str(a.code.education)),
+      codeLine("location", str(a.code.location)),
+      codeLine("stack", arr(PROFILE.stack)),
+      codeLine("mobile", arr(["Android"])),
+      codeLine("gpa", `<span class="tk-b">${esc(a.code.gpa)}</span>`),
+      codeLine("graduated", `<span class="tk-b">2025</span>`),
+      codeLine("openToWork", `<span class="tk-b">true</span>`, true),
+    ].join("")}<div>};</div></pre></div>
+  </div>`);
 
-const renderProjects = ({ projects: p }) => block("projects", p.label, `
-  <h2 class="sec-title reveal">${rich(p.title)}</h2>
-  <div class="projects">${p.items.map((it, i) => `
-    <article class="project reveal">
-      <div class="project-info">
-        <div class="project-head"><span class="project-meta">${esc(it.meta)}</span><span class="project-num">${String(i + 1).padStart(2, "0")}</span></div>
-        <h3>${esc(it.title)}</h3>
-        <p>${esc(it.desc)}</p>
-        ${list(it.points)}
-        ${chips(it.tags)}
-      </div>
-      <div class="project-visual ${it.visual}" aria-hidden="true">${MOCKS[it.visual]()}</div>
+const renderProjects = ({ projects: p }) => section("projects", "alt", `
+  ${secHead(p.eyebrow, p.title)}
+  <div class="proj-grid">${p.items.map((it) => `
+    <article class="card proj featured reveal">
+      <div class="proj-top"><span>${esc(it.top)}</span><span class="star">${esc(it.star)}</span></div>
+      <h3>${esc(it.title)}</h3>
+      <p>${esc(it.desc)}</p>
+      ${bullets(it.points)}
+      ${tags(it.tags)}
     </article>`).join("")}
   </div>`);
 
-const renderSkills = ({ skills: s }) => block("skills", s.label, `
-  <h2 class="sec-title reveal">${rich(s.title)}</h2>
-  <div class="skills">${s.groups.map(([name, rows]) => `
-    <div class="skill-group reveal">
-      <h3>${esc(name)}</h3>
-      <ul>${rows.map(([n, note]) => `<li class="skill-row"><b>${esc(n)}</b><span>${esc(note)}</span></li>`).join("")}</ul>
-    </div>`).join("")}
-  </div>`);
+const renderSkills = ({ skills: s }) => section("skills", "", `
+  ${secHead(s.eyebrow, s.title)}
+  <div class="skills-grid">${s.groups.map(([name, list]) => `<div class="card reveal"><h3>${esc(name)}</h3>${tags(list)}</div>`).join("")}</div>`);
 
-const renderEducation = ({ education: e }) => block("education", e.label, `
-  <h2 class="sec-title reveal">${rich(e.title)}</h2>
-  <div class="edu">
-    <article class="edu-main reveal">
-      <p class="small-label">${esc(e.year)}</p>
+const renderEducation = ({ education: e }) => section("education", "alt", `
+  ${secHead(e.eyebrow, e.title)}
+  <div class="edu-grid">
+    <div class="card reveal">
       <h3>${esc(e.degree)}</h3>
-      <p class="edu-school">${esc(e.school)}</p>
-      <div class="edu-gpa"><b>${esc(e.gpa)}</b><span>${esc(e.gpaNote[0])}<br>${esc(e.gpaNote[1])}</span></div>
-      <p class="small-label">${esc(e.highlightsLabel)}</p>
-      ${list(e.highlights)}
-    </article>
+      <p class="muted">${esc(e.meta)}</p>
+      <p class="gpa"><span class="grad">${esc(e.gpa)}</span> <small>${esc(e.gpaScale)}</small></p>
+      <p class="label">${esc(e.highlightsLabel)}</p>
+      ${bullets(e.highlights)}
+    </div>
     <div class="edu-side">
-      <article class="thesis reveal"><p class="small-label">${esc(e.thesisLabel)}</p><p class="thesis-title">${esc(PROFILE.thesisTitle)}</p></article>
-      <article class="langs reveal"><p class="small-label">${esc(e.langLabel)}</p>${list(e.langs)}</article>
+      <div class="card reveal"><p class="label first">${esc(e.thesisLabel)}</p><p class="pub">${esc(PROFILE.thesisTitle)}</p></div>
+      <div class="card reveal"><p class="label first">${esc(e.langLabel)}</p>${bullets(e.langs)}</div>
     </div>
   </div>`);
 
-const renderContact = ({ contact: c, footer }) => `
-<section id="contact" class="contact"><div class="wrap">
-  <p class="sec-label reveal">${esc(c.label)}</p>
-  <h2 class="reveal">${rich(c.title)}</h2>
+const termLine = (flag, valueHtml) => `<div><p class="cmd"><b>$</b> contact --${flag}</p>${valueHtml}</div>`;
+
+const renderContact = ({ contact: c, hero: h }) => section("contact", "contact", `
+  ${secHead(c.eyebrow, c.title)}
   <p class="contact-sub reveal">${esc(c.sub)}</p>
-  <a class="big-mail reveal" href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)} →</a>
-  <dl class="contact-grid reveal">
-    <div class="c-item"><dt>${esc(c.waLabel)}</dt><dd>${extLink(waUrl(), PROFILE.phone)}</dd></div>
-    ${activeSocials().map((s) => `<div class="c-item"><dt>${esc(s.label)}</dt><dd>${extLink(s.url, s.url.replace(/^https?:\/\/(www\.)?/, ""))}</dd></div>`).join("")}
-    <div class="c-item"><dt>${esc(c.locLabel)}</dt><dd>${esc(c.location)}</dd></div>
-  </dl>
-  <div class="cta reveal">
-    <a href="mailto:${esc(PROFILE.email)}" class="btn btn-light">${esc(c.btnEmail)}</a>
-    <a href="${esc(PROFILE.cvFile)}" download class="btn btn-ghost-light">${esc(c.btnCv)}</a>
+  <div class="window terminal reveal">${windowBar("contact.sh")}
+    <div class="term-body">
+      ${termLine("email", `<a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a>`)}
+      ${termLine("whatsapp", extLink(waUrl(), PROFILE.phone))}
+      ${activeSocials().map((s) => termLine(s.label.toLowerCase(), extLink(s.url, s.url.replace(/^https?:\/\/(www\.)?/, "")))).join("")}
+      ${termLine("location", `<span class="val">${esc(c.location)}</span>`)}
+      <p class="cmd"><b>$</b> <span class="caret" aria-hidden="true"></span></p>
+    </div>
   </div>
-  <footer class="foot"><span>© ${PROFILE.year} ${esc(fullName())} · ${esc(footer)}</span><a href="#home">${esc(c.toTop)}</a></footer>
-</div></section>`;
+  <div class="actions center reveal">
+    <a href="mailto:${esc(PROFILE.email)}" class="btn btn-primary">${esc(c.btnEmail)}</a>
+    <a href="${esc(PROFILE.cvFile)}" download class="btn btn-ghost">${esc(c.btnCv)}</a>
+  </div>`);
+
+const renderFooter = (t) => `<footer>© ${PROFILE.year} ${esc(PROFILE.firstName)} ${esc(PROFILE.lastName)} · ${esc(t.footer)}</footer>`;
 
 /* =========================================================
    INTERAKSI
@@ -597,62 +529,49 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch { /* abaikan */ } },
 };
 
-let observers = [];
-function setupMotion(instant) {
-  observers.forEach((o) => o.disconnect());
-  observers = [];
-  const items = document.querySelectorAll(".reveal");
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const hasIO = "IntersectionObserver" in window;
-
-  if (instant || reduce || !hasIO) {
-    items.forEach((el) => el.classList.add("in"));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-    items.forEach((el) => io.observe(el));
-    observers.push(io);
-  }
-
-  if (hasIO) { // tandai menu sesuai section yang sedang dibaca
-    const links = document.querySelectorAll("[data-link]");
-    const spy = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) links.forEach((a) => a.classList.toggle("active", a.dataset.link === e.target.id)); });
-    }, { rootMargin: "-45% 0px -50% 0px" });
-    document.querySelectorAll("main section[id]").forEach((s) => spy.observe(s));
-    observers.push(spy);
-  }
+let typingTimer = null;
+function startTyping(roles) {
+  clearTimeout(typingTimer);
+  const el = document.getElementById("typed-text");
+  if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let r = 0, i = roles[0].length, deleting = true;
+  const tick = () => {
+    const word = roles[r];
+    i += deleting ? -1 : 1;
+    el.textContent = word.slice(0, i);
+    let delay = deleting ? 45 : 85;
+    if (!deleting && i === word.length) { deleting = true; delay = 1800; }
+    else if (deleting && i === 0) { deleting = false; r = (r + 1) % roles.length; delay = 350; }
+    typingTimer = setTimeout(tick, delay);
+  };
+  typingTimer = setTimeout(tick, 2200);
 }
 
 function bindUI() {
-  const top = document.getElementById("top");
+  const nav = document.getElementById("nav");
   const menu = document.getElementById("menu");
   const burger = document.getElementById("burger");
-  const closeMenu = () => { menu.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); };
-  const onScroll = () => top.classList.toggle("scrolled", window.scrollY > 8);
+  const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 10);
   onScroll();
   window.onscroll = onScroll;
-  burger.onclick = () => burger.setAttribute("aria-expanded", menu.classList.toggle("open"));
-  menu.querySelectorAll("a").forEach((a) => (a.onclick = closeMenu));
-  document.onkeydown = (e) => { if (e.key === "Escape") closeMenu(); };
-  document.querySelectorAll("[data-lang]").forEach((b) => (b.onclick = () => {
-    render(b.dataset.lang, true);
-    document.querySelector(`[data-lang="${b.dataset.lang}"]`).focus();
-  }));
+  burger.onclick = () => {
+    const open = menu.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open);
+  };
+  menu.querySelectorAll("a").forEach((a) => (a.onclick = () => { menu.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); }));
+  document.querySelectorAll("[data-lang]").forEach((b) => (b.onclick = () => render(b.dataset.lang)));
 }
 
-function render(lang, instant = false) {
-  const code = CONTENT[lang] ? lang : "id";
-  const t = CONTENT[code];
-  document.documentElement.lang = code;
-  document.title = `${fullName()} | ${t.docTitle}`;
-  store.set("portfolio-lang", code);
+function render(lang) {
+  const t = CONTENT[lang] || CONTENT.id;
+  document.documentElement.lang = lang;
+  store.set("portfolio-lang", lang);
   document.getElementById("app").innerHTML =
-    renderTop(t, code) +
-    `<main>${renderHero(t)}${renderBand()}${renderAbout(t)}${renderProjects(t)}${renderSkills(t)}${renderEducation(t)}${renderContact(t)}</main>`;
-  setupMotion(instant);
+    renderNav(t, lang) +
+    `<main>${renderHero(t)}${renderAbout(t)}${renderProjects(t)}${renderSkills(t)}${renderEducation(t)}${renderContact(t)}</main>` +
+    renderFooter(t);
   bindUI();
+  startTyping(t.hero.roles);
 }
 
 render(store.get("portfolio-lang") === "en" ? "en" : "id");
